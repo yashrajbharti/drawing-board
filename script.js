@@ -31,8 +31,8 @@ const saveToHistory = () => {
   const currentState = ctx.getImageData(0, 0, canvas.width, canvas.height);
   if (
     !canvasHistory.length ||
-    !canvasHistory[historyStep].data.every(
-      (val, i) => val === currentState.data[i]
+    !canvasHistory[historyStep]?.data?.every(
+      (val, i) => val === currentState?.data[i]
     )
   ) {
     if (historyStep < canvasHistory.length - 1) {
@@ -59,16 +59,23 @@ let shapeStartX, shapeStartY; // New variables to track the starting position fo
 
 const startDraw = (e) => {
   isDrawing = true;
-  prevMouseX = e.offsetX;
-  prevMouseY = e.offsetY;
+  // Use e.offsetX and e.offsetY for mouse, or use touches for touch
+  prevMouseX =
+    e.offsetX !== undefined
+      ? e.offsetX
+      : e.clientX - canvas.getBoundingClientRect().left;
+  prevMouseY =
+    e.offsetY !== undefined
+      ? e.offsetY
+      : e.clientY - canvas.getBoundingClientRect().top;
   ctx.beginPath();
   ctx.lineWidth = brushWidth;
   ctx.strokeStyle = selectedColor;
   ctx.fillStyle = selectedColor;
 
   // Store the starting point for shapes
-  shapeStartX = e.offsetX;
-  shapeStartY = e.offsetY;
+  shapeStartX = prevMouseX;
+  shapeStartY = prevMouseY;
 
   // Save the state of the canvas when starting to draw
   saveToHistory(); // Save initial state before any drawing starts
@@ -78,28 +85,34 @@ const drawing = (e) => {
   if (!isDrawing) return;
 
   // Clear the canvas to redraw the shape
-  ctx.putImageData(canvasHistory[historyStep], 0, 0); // Restore the last state
+  if (canvasHistory[historyStep] instanceof ImageData)
+    ctx.putImageData(canvasHistory[historyStep], 0, 0); // Restore the last state
 
   // Draw based on selected tool
   ctx.lineWidth = brushWidth;
   ctx.strokeStyle = selectedTool === "eraser" ? "#fff" : selectedColor;
   ctx.fillStyle = selectedColor;
 
+  const currentX =
+    e.offsetX !== undefined
+      ? e.offsetX
+      : e.clientX - canvas.getBoundingClientRect().left;
+  const currentY =
+    e.offsetY !== undefined
+      ? e.offsetY
+      : e.clientY - canvas.getBoundingClientRect().top;
+
   if (selectedTool === "brush" || selectedTool === "eraser") {
-    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.lineTo(currentX, currentY);
     ctx.stroke();
   } else if (selectedTool === "rectangle") {
-    // Draw rectangle while dragging
-    drawRect(e);
+    drawRect({ offsetX: currentX, offsetY: currentY });
   } else if (selectedTool === "circle") {
-    // Draw circle while dragging
-    drawCircle(e);
+    drawCircle({ offsetX: currentX, offsetY: currentY });
   } else if (selectedTool === "triangle") {
-    // Draw triangle while dragging
-    drawTriangle(e);
+    drawTriangle({ offsetX: currentX, offsetY: currentY });
   } else if (selectedTool === "line") {
-    // Draw line while dragging
-    drawLine(e);
+    drawLine({ offsetX: currentX, offsetY: currentY });
   }
 };
 
@@ -170,14 +183,16 @@ const drawLine = (e) => {
 const undo = () => {
   if (historyStep > 0) {
     historyStep--;
-    ctx.putImageData(canvasHistory[historyStep], 0, 0);
+    if (canvasHistory[historyStep] instanceof ImageData)
+      ctx.putImageData(canvasHistory[historyStep], 0, 0);
   }
 };
 
 const redo = () => {
   if (historyStep < canvasHistory.length - 1) {
     historyStep++;
-    ctx.putImageData(canvasHistory[historyStep], 0, 0);
+    if (canvasHistory[historyStep] instanceof ImageData)
+      ctx.putImageData(canvasHistory[historyStep], 0, 0);
   }
 };
 
@@ -238,4 +253,26 @@ saveImg.addEventListener("click", () => {
   link.download = "drawing.png";
   link.href = canvas.toDataURL();
   link.click();
+});
+
+// Add touch event listeners for mobile
+canvas.addEventListener("touchstart", (e) => {
+  // Prevent default behavior to avoid scrolling
+  e.preventDefault();
+  startDraw(e.touches[0]); // Use the first touch point
+});
+
+canvas.addEventListener("touchmove", (e) => {
+  e.preventDefault(); // Prevent scrolling
+  drawing(e.touches[0]); // Use the first touch point
+});
+
+canvas.addEventListener("touchend", endDraw);
+
+const toggleButton = document.querySelector(".toggle-tools");
+const toolsContent = document.querySelector(".tools-content");
+
+toggleButton.addEventListener("click", () => {
+  const isExpanded = toggleButton.getAttribute("aria-expanded") === "true";
+  toggleButton.setAttribute("aria-expanded", !isExpanded);
 });

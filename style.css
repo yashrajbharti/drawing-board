@@ -236,3 +236,40 @@ section {
 input[type="checkbox"] {
   accent-color: var(--md-sys-color-primary);
 }
+
+
+.tools-board {
+  position: relative;
+}
+
+.toggle-tools {
+  display: none;
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0;
+  margin: 20px;
+  background: var(--md-sys-color-surface-container-low);
+  color: var(--md-sys-color-on-surface);
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .toggle-tools {
+    display: block;
+  }
+
+  [aria-expanded="false"]+.container>.tools-content {
+    display: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+
+  [aria-expanded="true"]+.container>.tools-content {
+    display: block;
+  }
+}
