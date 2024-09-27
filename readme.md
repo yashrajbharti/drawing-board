@@ -1,6 +1,8 @@
 # 🎨 Drawing Board for Kids
 
-This is a fun and interactive drawing board designed for kids. It allows children to unleash their creativity through various drawing tools and colors. 🌈✨
+![Icon](icons/icon-192x192.png)
+
+This is a fun and interactive drawing board designed for kids. It allows children to unleash their creativity through various drawing tools and colors. 🖌️✨
 
 ## Source and Inspiration
 
@@ -9,9 +11,5 @@ This project is inspired by [drawing-board](https://github.com/jimmyurl/drawing-
 ## Live Demo
 
 The project is hosted on GitHub Pages at [yashrajbharti/drawing-board](https://github.com/yashrajbharti/drawing-board). 🚀
-
-## Icons
-
-![Icon](icons/icon-192x192.png) 🖌️
 
 Feel free to explore and enjoy drawing! 🎉
