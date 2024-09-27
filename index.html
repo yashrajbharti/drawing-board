@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192x192.png">
+  <meta name="theme-color" content="#101418">
+  <title>Drawing App</title>
+  <link rel="shortcut icon" href="icons/icon-192x192.png" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="container">
+    <section class="tools-board">
+      <div class="row">
+        <h1 class="title" aria-label="Drawing Tools">TOOLS</h1>
+        <br>
+        <label class="title">Shapes</label>
+        <ul class="options" aria-label="Shape options">
+          <li class="option tool" id="rectangle">
+            <img src="icons/rectangle.svg" alt="Rectangle icon">
+            <span>Rectangle</span>
+          </li>
+          <li class="option tool" id="circle">
+            <img src="icons/circle.svg" alt="Circle icon">
+            <span>Circle</span>
+          </li>
+          <li class="option tool" id="triangle">
+            <img src="icons/triangle.svg" alt="Triangle icon">
+            <span>Triangle</span>
+          </li>
+          <li class="option tool" id="line">
+            <img src="icons/line.svg" alt="Line icon">
+            <span>Line</span>
+          </li>
+          <li class="option">
+            <input type="checkbox" id="fill-color">
+            <label for="fill-color">Fill color</label>
+          </li>
+        </ul>
+      </div>
+      <div class="row">
+        <label class="title">Options</label>
+        <ul class="options" aria-label="Tool options">
+          <li class="option active tool" id="brush">
+            <img src="icons/brush.svg" alt="Brush icon">
+            <span>Brush</span>
+          </li>
+          <li class="option tool" id="eraser">
+            <img src="icons/eraser.svg" alt="Eraser icon">
+            <span>Eraser</span>
+          </li>
+          <li class="option">
+            <input type="range" id="size-slider" min="1" max="30" value="5" aria-label="Brush size">
+          </li>
+        </ul>
+      </div>
+      <div class="row colors">
+        <label class="title">Colors</label>
+        <ul class="options" aria-label="Color options">
+          <li class="option selected"></li>
+          <li class="option"></li>
+          <li class="option"></li>
+          <li class="option"></li>
+          <li class="option">
+            <input type="color" id="color-picker" value="#4A98F7">
+          </li>
+        </ul>
+      </div>
+      <div class="row buttons">
+        <div class="button-wrapper">
+          <button class="undo" aria-label="Undo last action">Undo ↩</button>
+          <button class="redo" aria-label="Redo last undone action">Redo ↪</button>
+        </div>
+        <button class="clear-canvas" aria-label="Clear canvas">Clear Drawing</button>
+        <button class="save-img" aria-label="Save as image">Save As Image</button>
+      </div>
+
+    </section>
+    <section class="drawing-board">
+      <canvas aria-label="Drawing board"></canvas>
+    </section>
+  </div>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/sw.js").then(registration => {
+        console.log("ServiceWorker registered: ", registration);
+      }).catch(error => {
+        console.log("ServiceWorker registration failed: ", error);
+      });
+    }
+  </script>
+</body>
+
+</html>

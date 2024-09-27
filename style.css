@@ -1,0 +1,238 @@
+:root,
+:host {
+  --md-sys-color-background: #101418;
+  --md-sys-color-on-background: #e0e2e8;
+  --md-sys-color-surface: #101418;
+  --md-sys-color-surface-dim: #101418;
+  --md-sys-color-surface-bright: #363a3e;
+  --md-sys-color-surface-container-lowest: #0b0f12;
+  --md-sys-color-surface-container-low: #181c20;
+  --md-sys-color-surface-container: #1c2024;
+  --md-sys-color-surface-container-high: #272a2f;
+  --md-sys-color-surface-container-highest: #313539;
+  --md-sys-color-on-surface: #e0e2e8;
+  --md-sys-color-surface-variant: #404850;
+  --md-sys-color-on-surface-variant: #bfc7d1;
+  --md-sys-color-inverse-surface: #e0e2e8;
+  --md-sys-color-inverse-on-surface: #2d3135;
+  --md-sys-color-outline: #8a919b;
+  --md-sys-color-outline-variant: #404850;
+  --md-sys-color-shadow: #000000;
+  --md-sys-color-scrim: #000000;
+  --md-sys-color-surface-tint: #93ccff;
+  --md-sys-color-primary: #baddff;
+  --md-sys-color-on-primary: #003351;
+  --md-sys-color-primary-container: #63b7f8;
+  --md-sys-color-on-primary-container: #00273f;
+  --md-sys-color-inverse-primary: #006398;
+  --md-sys-color-secondary: #adcae6;
+  --md-sys-color-on-secondary: #14334a;
+  --md-sys-color-secondary-container: #26425a;
+  --md-sys-color-on-secondary-container: #bbd8f5;
+  --md-sys-color-tertiary: #f5cbff;
+  --md-sys-color-on-tertiary: #4d1563;
+  --md-sys-color-tertiary-container: #d898ed;
+  --md-sys-color-on-tertiary-container: #3f0356;
+  --md-sys-color-error: #ffb4ab;
+  --md-sys-color-on-error: #690005;
+  --md-sys-color-error-container: #93000a;
+  --md-sys-color-on-error-container: #ffdad6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  height: 100%;
+  margin: 0 20px;
+  background-color: var(--md-sys-color-surface);
+}
+
+section {
+  background: var(--md-sys-color-surface-variant);
+  border-radius: 7px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.tools-board {
+  width: 210px;
+  padding: 15px 22px 0;
+  background-color: var(--md-sys-color-surface-container-low);
+}
+
+.tools-board .row {
+  margin-bottom: 20px;
+}
+
+.row .options {
+  list-style: none;
+  margin: 10px 0 0 5px;
+}
+
+.row .options .option {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.option:hover img,
+.option.active img {
+  filter: invert(17%) sepia(90%) saturate(3000%) hue-rotate(900deg) brightness(100%) contrast(100%);
+}
+
+.option span,
+.option label {
+  color: var(--md-sys-color-on-surface);
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.option:hover span,
+.option:hover label,
+.option.active span,
+.option.active label {
+  color: var(--md-sys-color-primary);
+}
+
+.option #fill-color {
+  cursor: pointer;
+  height: 14px;
+  width: 14px;
+}
+
+#fill-color:checked~label {
+  color: var(--md-sys-color-primary);
+}
+
+.option #size-slider {
+  width: 100%;
+  height: 5px;
+  margin-top: 10px;
+}
+
+.colors .options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.colors .option {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  margin-top: 3px;
+  position: relative;
+}
+
+.colors .option:nth-child(1) {
+  background-color: var(--md-sys-color-surface);
+  border: 1px solid var(--md-sys-color-outline);
+}
+
+.colors .option:nth-child(2) {
+  background-color: var(--md-sys-color-error);
+}
+
+.colors .option:nth-child(3) {
+  background-color: var(--md-sys-color-secondary);
+}
+
+.colors .option:nth-child(4) {
+  background-color: var(--md-sys-color-on-primary);
+}
+
+.colors .option:nth-child(5) {
+  background-image: linear-gradient(var(--md-sys-color-primary), var(--md-sys-color-tertiary));
+}
+
+.colors .option.selected::before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 50%;
+  height: 12px;
+  width: 12px;
+  background: inherit;
+  border-radius: inherit;
+  border: 2px solid var(--md-sys-color-on-surface);
+  transform: translate(-50%, -50%);
+}
+
+.colors .option:first-child.selected::before {
+  border-color: var(--md-sys-color-outline);
+}
+
+.option #color-picker {
+  opacity: 0;
+  cursor: pointer;
+}
+
+.buttons button {
+  width: 100%;
+  color: var(--md-sys-color-on-primary);
+  border: none;
+  outline: none;
+  padding: 11px 0;
+  font-size: 0.9rem;
+  margin-bottom: 13px;
+  background: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.buttons .clear-canvas {
+  color: var(--md-sys-color-primary);
+  border: 1px solid var(--md-sys-color-outline);
+  transition: all 0.3s ease;
+}
+
+.clear-canvas:hover {
+  color: var(--md-sys-color-primary);
+  background: var(--md-sys-color-inverse-on-surface);
+}
+
+.buttons .save-img {
+  background: var(--md-sys-color-primary);
+  border: 1px solid var(--md-sys-color-primary);
+}
+
+.drawing-board {
+  flex: 1;
+  overflow: hidden;
+  background-color: var(--md-sys-color-surface-container);
+}
+
+.drawing-board canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.button-wrapper {
+  display: flex;
+  gap: 5px;
+}
+
+.button-wrapper :is(.undo, .redo) {
+  color: var(--md-sys-color-on-surface);
+  border: 1px solid var(--md-sys-color-outline);
+}
+
+input[type="checkbox"] {
+  accent-color: var(--md-sys-color-primary);
+}
