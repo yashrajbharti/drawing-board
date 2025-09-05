@@ -6,7 +6,7 @@ This is a fun and interactive drawing board designed for kids. It allows childre
 
 ## Source and Inspiration
 
-This project is inspired by [drawing-board](https://github.com/jimmyurl/drawing-board). 📚
+This project is inspired by [drawing-board](https://github.com/jimmyurl/drawing-board). Video on [brain booster games](https://www.youtube.com/watch?v=GtL5UBgCRV0) in hindi. 📚 
 
 ## Live Demo
 
