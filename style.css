@@ -262,11 +262,28 @@ input[type="checkbox"] {
     display: block;
   }
 
+  .container {
+    position: relative;
+  }
+
+  .tools-board {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    height: 100%;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .drawing-board {
+    width: 100%;
+  }
+
   .drawing-board canvas {
     width: 100%;
     height: 90dvh;
   }
-
 
   [aria-expanded="false"]+.container>.tools-content {
     display: none;
